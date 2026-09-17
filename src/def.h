@@ -107,9 +107,8 @@
    #define KEYBOARD_SYMBOL_SIZE     24
 
 // Parameters for RG351MP
+// SCREEN_WIDTH/SCREEN_HEIGHT intentionally omitted: detected at runtime, see g_screenWidth/g_screenHeight
 #elif defined(DEVICE_RG351MP)
-   #define SCREEN_WIDTH             640
-   #define SCREEN_HEIGHT            480
    #define HARDWARE_ACCELERATION    0
    #define FULLSCREEN               1
    #define FONT_NAME                "NotoSans-Regular.ttf"
@@ -499,6 +498,8 @@
 extern SDL_Window* g_window;
 extern SDL_Renderer* g_renderer;
 extern SDL_Joystick* g_joystick;
+extern int g_screenWidth;                    // Actual window width in px (set at init)
+extern int g_screenHeight;                   // Actual window height in px (set at init)
 extern TTF_Font *g_font;                     // Variable size font
 extern TTF_Font *g_fontMono;                 // Mono size font
 extern int g_charW;                          // Width of one character in monospace font

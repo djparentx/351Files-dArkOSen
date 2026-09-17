@@ -45,25 +45,31 @@ bool SDLUtils::init()
       INHIBIT(std::cout << "SDL_JoystickOpen OK" << std::endl;)
    }
 
-   // Create window
-   #if FULLSCREEN == 1
-      g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+      // Determine screen size and create window
+   #if defined(DEVICE_RG351MP)
+      SDL_DisplayMode mode;
+      if (SDL_GetDesktopDisplayMode(0, &mode) == 0)
+      {
+         g_screenWidth = mode.w;
+         g_screenHeight = mode.h;
+      }
+      else
+      {
+         std::cerr << "Could not detect display mode! SDL_Error: " << SDL_GetError() << std::endl;
+         g_screenWidth = 640;
+         g_screenHeight = 480;
+      }
+      g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, g_screenWidth, g_screenHeight, SDL_WINDOW_FULLSCREEN_DESKTOP);
    #else
-      g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+      g_screenWidth = SCREEN_WIDTH;
+      g_screenHeight = SCREEN_HEIGHT;
+      #if FULLSCREEN == 1
+         g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, g_screenWidth, g_screenHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+      #else
+         g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, g_screenWidth, g_screenHeight, SDL_WINDOW_SHOWN);
+      #endif
    #endif
    if (g_window == NULL)
-   {
-      std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
-      return false;
-   }
-
-   // Create renderer
-   #if HARDWARE_ACCELERATION == 1
-   g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
-   #else
-   g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_SOFTWARE);
-   #endif
-   if (g_renderer == NULL)
    {
       std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
       return false;
