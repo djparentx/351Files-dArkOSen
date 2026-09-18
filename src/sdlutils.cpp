@@ -71,6 +71,20 @@ bool SDLUtils::init()
    #endif
    if (g_window == NULL)
    {
+      std::cerr << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+      return false;
+   }
+
+   // Create renderer
+   #if defined(DEVICE_RG351MP)
+   g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
+   #elif HARDWARE_ACCELERATION == 1
+   g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_ACCELERATED);
+   #else
+   g_renderer = SDL_CreateRenderer(g_window, -1, SDL_RENDERER_SOFTWARE);
+   #endif
+   if (g_renderer == NULL)
+   {
       std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
       return false;
    }
