@@ -171,6 +171,8 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -e
+          export CCACHE_DIR="$GITHUB_WORKSPACE/.ccache"
+          mkdir -p "$CCACHE_DIR"
           TOOLCHAIN="$GITHUB_WORKSPACE/AmberELEC/build.AmberELEC-RK3326.aarch64/toolchain"
           TARGET="aarch64-libreelec-linux-gnueabi"
 
