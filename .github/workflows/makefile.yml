@@ -10,6 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     timeout-minutes: 360
+    env:
+      DOCKER_IMAGE: ghcr.io/amberelec/amberelec-build@sha256:4f2efc728c0f9b44577c880a856ba2494307bd25a2a09649ba3992d1d8f08ef8
 
     steps:
       - name: Checkout 351Files
@@ -51,8 +53,7 @@ jobs:
             packages/python/devel/MarkupSafe/package.mk
 
       - name: Pull AmberELEC build container
-        working-directory: AmberELEC
-        run: make docker-image-pull
+        run: docker pull ghcr.io/amberelec/amberelec-build@sha256:4f2efc728c0f9b44577c880a856ba2494307bd25a2a09649ba3992d1d8f08ef8
 
       - name: Get AmberELEC commit
         id: amberelec_sha
