@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: AmberELEC/AmberELEC
-          ref: dev
+          ref: 4e4b76b403a3409fce4ec943fa6f66fe7348160c
           path: AmberELEC
           fetch-depth: 1
 
