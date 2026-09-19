@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "def.h"
@@ -27,6 +28,10 @@ TTF_Font *g_fontMono = NULL;
 int g_charW = 0;
 std::vector<IWindow *> g_windows;
 bool IWindow::g_hasChanged = true;
+int g_btnOk = 1;
+int g_btnBack = 0;
+int g_btnSelect = 2;
+int g_btnMenu = 3;
 
 // Textures for icons
 SDL_Texture *g_iconFile = NULL;
@@ -50,9 +55,35 @@ SDL_Texture *g_iconPlus = NULL;
 
 //------------------------------------------------------------------------------
 
+void loadKeymap()
+{
+   std::ifstream file("351Files.cfg");
+   if (! file.is_open())
+      return;
+
+   std::string line;
+   while (std::getline(file, line))
+   {
+      size_t eq = line.find('=');
+      if (eq == std::string::npos)
+         continue;
+
+      std::string key = line.substr(0, eq);
+      int value = atoi(line.substr(eq + 1).c_str());
+
+      if (key == "OK")          g_btnOk = value;
+      else if (key == "BACK")   g_btnBack = value;
+      else if (key == "SELECT") g_btnSelect = value;
+      else if (key == "MENU")   g_btnMenu = value;
+   }
+}
+
+//------------------------------------------------------------------------------
+
 int main(int argc, char* args[])
 {
    // Init SDL
+   loadKeymap();
    if (! SDLUtils::init())
    {
       SDLUtils::close();
