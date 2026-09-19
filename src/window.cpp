@@ -213,7 +213,7 @@ void IWindow::renderAll(void)
 void IWindow::renderPresent(void)
 {
    SDL_RenderPresent(g_renderer);
-   #ifndef DEVICE_PC
+   #if !defined(DEVICE_PC) && !defined(DEVICE_RG351MP)
    SDL_RenderPresent(g_renderer);
    SDL_RenderPresent(g_renderer);
    #endif
