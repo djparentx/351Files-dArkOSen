@@ -89,6 +89,12 @@ bool SDLUtils::init()
       return false;
    }
 
+   // Prime the double buffer so the first frame is visible without input
+   SDL_RenderClear(g_renderer);
+   SDL_RenderPresent(g_renderer);
+   SDL_RenderClear(g_renderer);
+   SDL_RenderPresent(g_renderer);
+
    return true;
 }
 
