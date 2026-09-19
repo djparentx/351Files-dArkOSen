@@ -59,6 +59,17 @@ bool SDLUtils::init()
          g_screenWidth = 640;
          g_screenHeight = 480;
       }
+	  
+	  // Set UI metrics, scaled for resolution
+      float scale = (g_screenWidth > 640) ? 1.5f : 1.0f;
+      g_fontSize            = (int)(FONT_SIZE            * scale);
+      g_lineHeight          = (int)(LINE_HEIGHT          * scale);
+      g_iconSize            = (int)(ICON_SIZE            * scale);
+      g_marginX             = (int)(MARGIN_X             * scale);
+      g_keyboardMargin      = (int)(KEYBOARD_MARGIN      * scale);
+      g_keyboardKeySpacing  = (int)(KEYBOARD_KEY_SPACING * scale);
+      g_keyboardSymbolSize  = (int)(KEYBOARD_SYMBOL_SIZE * scale);
+	  
       g_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, g_screenWidth, g_screenHeight, SDL_WINDOW_FULLSCREEN_DESKTOP);
    #else
       g_screenWidth = SCREEN_WIDTH;

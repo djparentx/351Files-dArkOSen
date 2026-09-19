@@ -15,6 +15,13 @@ SDL_Renderer* g_renderer = NULL;
 SDL_Joystick* g_joystick = NULL;
 int g_screenWidth = 0;
 int g_screenHeight = 0;
+int g_fontSize = 0;
+int g_lineHeight = 0;
+int g_iconSize = 0;
+int g_marginX = 0;
+int g_keyboardMargin = 0;
+int g_keyboardKeySpacing = 0;
+int g_keyboardSymbolSize = 0;
 TTF_Font *g_font = NULL;
 TTF_Font *g_fontMono = NULL;
 int g_charW = 0;
@@ -54,7 +61,7 @@ int main(int argc, char* args[])
 
    // Load icon textures
    std::ostringstream oss;
-   oss << '/' << ICON_SIZE;
+   oss << '/' << g_iconSize;
    g_iconFile =      SDLUtils::loadTexture(std::string(RES_PATH) + oss.str() + "/file.png");
    g_iconDir =       SDLUtils::loadTexture(std::string(RES_PATH) + oss.str() + "/folder.png");
    g_iconUp =        SDLUtils::loadTexture(std::string(RES_PATH) + oss.str() + "/up.png");
@@ -75,8 +82,8 @@ int main(int argc, char* args[])
    g_iconPlus =      SDLUtils::loadTexture(std::string(RES_PATH) + oss.str() + "/plus.png");
 
    // Load fonts
-   g_font = SDLUtils::loadFont(std::string(RES_PATH) + "/" + FONT_NAME, FONT_SIZE);
-   g_fontMono = SDLUtils::loadFont(std::string(RES_PATH) + "/" + FONT_NAME_MONO, FONT_SIZE);
+   g_font = SDLUtils::loadFont(std::string(RES_PATH) + "/" + FONT_NAME, g_fontSize);
+   g_fontMono = SDLUtils::loadFont(std::string(RES_PATH) + "/" + FONT_NAME_MONO, g_fontSize);
    if (g_font == NULL || g_fontMono == NULL)
    {
       SDLUtils::close();

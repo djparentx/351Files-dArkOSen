@@ -32,10 +32,10 @@ IWindow::IWindow(const bool p_fullscreen, const std::string &p_title) :
    // Init scrollbar
    m_scrollbar.w = 0;
    m_scrollbar.h = 0;
-   m_scrollbar.x = g_screenWidth - MARGIN_X;
-   m_scrollbar.y = LINE_HEIGHT;
+   m_scrollbar.x = g_screenWidth - g_marginX;
+   m_scrollbar.y = g_lineHeight;
    // Init m_nbVisibleLines
-   m_nbVisibleLines = (g_screenHeight - LINE_HEIGHT) / LINE_HEIGHT;
+   m_nbVisibleLines = (g_screenHeight - g_lineHeight) / g_lineHeight;
    // Add window to the list
    g_windows.push_back(this);
    g_hasChanged = true;
@@ -324,10 +324,10 @@ void IWindow::adjustScrollbar(void)
       return;
    }
    // Scrollbar size
-   m_scrollbar.w = MARGIN_X;
-   m_scrollbar.h = round((double)(g_screenHeight - LINE_HEIGHT) / (m_nbItems - m_nbVisibleLines + 1));
-   if (m_scrollbar.h < LINE_HEIGHT / 2)
-      m_scrollbar.h = LINE_HEIGHT / 2;
+   m_scrollbar.w = g_marginX;
+   m_scrollbar.h = round((double)(g_screenHeight - g_lineHeight) / (m_nbItems - m_nbVisibleLines + 1));
+   if (m_scrollbar.h < g_lineHeight / 2)
+      m_scrollbar.h = g_lineHeight / 2;
    // Scrollbar position
    adjustScrollbarPosition();
 }
@@ -347,5 +347,5 @@ void IWindow::adjustScrollbarPosition(void)
       return;
    }
    // General case
-   m_scrollbar.y = LINE_HEIGHT + round(((double)(g_screenHeight - LINE_HEIGHT - m_scrollbar.h) / (m_nbItems - m_nbVisibleLines)) * m_camera.y);
+   m_scrollbar.y = g_lineHeight + round(((double)(g_screenHeight - g_lineHeight - m_scrollbar.h) / (m_nbItems - m_nbVisibleLines)) * m_camera.y);
 }

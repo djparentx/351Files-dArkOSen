@@ -500,6 +500,13 @@ extern SDL_Renderer* g_renderer;
 extern SDL_Joystick* g_joystick;
 extern int g_screenWidth;                    // Actual window width in px (set at init)
 extern int g_screenHeight;                   // Actual window height in px (set at init)
+extern int g_fontSize;
+extern int g_lineHeight;
+extern int g_iconSize;
+extern int g_marginX;
+extern int g_keyboardMargin;
+extern int g_keyboardKeySpacing;
+extern int g_keyboardSymbolSize;
 extern TTF_Font *g_font;                     // Variable size font
 extern TTF_Font *g_fontMono;                 // Mono size font
 extern int g_charW;                          // Width of one character in monospace font
