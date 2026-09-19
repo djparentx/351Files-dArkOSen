@@ -65,7 +65,7 @@ bool SDLUtils::init()
       float scale = (g_screenWidth > 640) ? 1.333f : 1.0f;
       g_fontSize            = (int)(FONT_SIZE            * scale);
       g_lineHeight          = (int)(LINE_HEIGHT          * scale);
-      g_iconSize            = (int)(ICON_SIZE            * scale);
+      g_iconSize            = (g_screenWidth > 640) ? 32 : ICON_SIZE;
       g_marginX             = (int)(MARGIN_X             * scale);
       g_keyboardMargin      = (int)(KEYBOARD_MARGIN      * scale);
       g_keyboardKeySpacing  = (int)(KEYBOARD_KEY_SPACING * scale);
