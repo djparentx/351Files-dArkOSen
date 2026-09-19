@@ -72,7 +72,7 @@ jobs:
           set -o pipefail
           set -x
           mkdir -p sources
-          { grep -rl 'ftpmirror\.gnu\.org' packages --include=package.mk; echo packages/devel/gmp/package.mk; echo packages/compress/zlib/package.mk; } | while read -r pkgmk; do
+          { grep -rl 'ftpmirror\.gnu\.org' packages --include=package.mk; echo packages/devel/gmp/package.mk; echo packages/compress/zlib/package.mk; echo packages/devel/libtool/package.mk; } | while read -r pkgmk; do
             (
               PKG_NAME=""; PKG_VERSION=""; PKG_SHA256=""; PKG_URL=""
               source "$pkgmk"
